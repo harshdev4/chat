@@ -1,180 +1,200 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Echo - Profile Page</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile - Echo</title>
+    <style>
+      :root {
+        --body-bg: #f5f7fb;
+        --body-text: #222;
+        --header-bg: #ffffff;
+        --header-text: #0078ff;
+        --nav-link: #444;
+        --nav-link-hover: #0078ff;
+        --profile-card-bg: #ffffff;
+        --profile-card-border: #e5e7eb;
+        --profile-card-text: #555;
+        --profile-card-title: #0078ff;
+        --profile-img-border: #0078ff;
+        --button-bg: #0078ff;
+        --button-text: #fff;
+        --button-hover: #005bb5;
+        --small-text: #888;
+      }
 
-    body {
-      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-      color: #fff;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
+      .dark-theme {
+        --body-bg: #121212;
+        --body-text: #f1f1f1;
+        --header-bg: #1e1e1e;
+        --header-text: #bb86fc;
+        --nav-link: #f1f1f1;
+        --nav-link-hover: #bb86fc;
+        --profile-card-bg: #1a1a1a;
+        --profile-card-border: #333;
+        --profile-card-text: #ccc;
+        --profile-card-title: #bb86fc;
+        --profile-img-border: #bb86fc;
+        --button-bg: #bb86fc;
+        --button-text: #121212;
+        --button-hover: #9955cc;
+        --small-text: #aaa;
+      }
 
-    header {
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 2rem;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-    }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
 
-    header h1 {
-      font-size: 1.5rem;
-      color: #00d4ff;
-    }
+      body {
+        background: var(--body-bg);
+        color: var(--body-text);
+        margin: 0;
+        padding: 0;
+        transition: background 0.3s, color 0.3s;
+      }
 
-    nav a {
-      color: #fff;
-      text-decoration: none;
-      margin: 0 1rem;
-      transition: 0.3s;
-    }
+      header {
+        background: var(--header-bg);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 2rem;
+        border-bottom: 1px solid var(--profile-card-border);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        transition: background 0.3s, border 0.3s;
+      }
 
-    nav a:hover {
-      color: #00d4ff;
-    }
+      header h1 {
+        color: var(--header-text);
+        font-size: 1.5rem;
+        font-weight: 600;
+      }
 
-    main {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+      nav a {
+        text-decoration: none;
+        color: var(--nav-link);
+        margin-left: 1rem;
+        transition: color 0.3s;
+      }
 
-    .profile-card {
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-      border-radius: 20px;
-      padding: 2rem;
-      text-align: center;
-      width: 90%;
-      max-width: 400px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-    }
+      nav a.active,
+      nav a:hover {
+        color: var(--nav-link-hover);
+        font-weight: 500;
+      }
 
-    .profile-card img {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin-bottom: 1rem;
-      border: 3px solid #00d4ff;
-    }
+      main.profile-page {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 2rem 1rem;
+        min-height: calc(100vh - 70px);
+        transition: background 0.3s;
+      }
 
-    .profile-card h2 {
-      font-size: 1.5rem;
-      color: #00ffaa;
-    }
-
-    .profile-card p {
-      margin: 0.5rem 0;
-      color: #ddd;
-    }
-
-    .edit-btn {
-      background: #00d4ff;
-      border: none;
-      padding: 0.8rem 1.5rem;
-      border-radius: 10px;
-      color: #000;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.3s;
-      margin-top: 1rem;
-    }
-
-    .edit-btn:hover {
-      background: #00ffaa;
-    }
-
-    .edit-form {
-      display: none;
-      flex-direction: column;
-      gap: 0.8rem;
-      margin-top: 1rem;
-    }
-
-    .edit-form input {
-      padding: 0.7rem;
-      border: none;
-      border-radius: 10px;
-      outline: none;
-    }
-
-    @media (max-width: 600px) {
       .profile-card {
-        width: 95%;
-        padding: 1.5rem;
+        background: var(--profile-card-bg);
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        width: 100%;
+        max-width: 400px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        border: 1px solid var(--profile-card-border);
+        text-align: center;
+        transition: background 0.3s, border 0.3s;
       }
-    }
-  </style>
-</head>
-<body>
-  <header>
-    <h1>Echo</h1>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="profile.html">Profile</a>
-      <a href="settings.html">Settings</a>
-    </nav>
-  </header>
 
-  <main>
-    <div class="profile-card">
-      <img src="./default-image.png" alt="Profile Picture" id="profilePic">
-      <h2 id="userName">Harsh Tiwari</h2>
-      <p id="userEmail">harsh@example.com</p>
-      <button class="edit-btn" onclick="toggleEdit()">Edit Profile</button>
+      .profile-card img.profile-img {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid var(--profile-img-border);
+        transition: border 0.3s;
+      }
 
-      <div class="edit-form" id="editForm">
-        <input type="text" id="nameInput" placeholder="Enter new name">
-        <input type="email" id="emailInput" placeholder="Enter new email">
-        <input type="file" id="imgInput" accept="image/*">
-        <button class="edit-btn" onclick="saveProfile()">Save</button>
+      .profile-card h2 {
+        font-size: 1.5rem;
+        color: var(--profile-card-title);
+        margin: 0.5rem 0;
+      }
+
+      .profile-card p {
+        font-size: 1rem;
+        color: var(--profile-card-text);
+        margin: 0.2rem 0;
+      }
+
+      .profile-card button {
+        margin-top: 1rem;
+        background: var(--button-bg);
+        color: var(--button-text);
+        border: none;
+        padding: 0.8rem 1.5rem;
+        border-radius: 10px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background 0.3s, color 0.3s;
+      }
+
+      .profile-card button:hover {
+        background: var(--button-hover);
+      }
+
+      .profile-card p[style] {
+        color: var(--small-text);
+      }
+
+      @media (max-width: 600px) {
+        main.profile-page {
+          padding: 1.5rem 0.5rem;
+        }
+        .profile-card {
+          padding: 1.5rem;
+          width: 95%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Echo</h1>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="profile.html" class="active">Profile</a>
+        <a href="settings.html">Settings</a>
+      </nav>
+    </header>
+
+    <main class="profile-page">
+      <div class="profile-card">
+        <img
+          src="default-image.png"
+          alt="Profile Picture"
+          class="profile-img"
+        />
+        <h2>Harsh Tiwari</h2>
+        <p>Email: harsh@example.com</p>
+        <p>Status: Online</p>
+        <button>Edit Profile</button>
+        <p style="font-size: 0.9rem; color: #888; margin-top: 0.5rem">
+          More features coming soon...
+        </p>
       </div>
-    </div>
-  </main>
-
-  <script>
-    const editForm = document.getElementById('editForm');
-    const userName = document.getElementById('userName');
-    const userEmail = document.getElementById('userEmail');
-    const profilePic = document.getElementById('profilePic');
-
-    function toggleEdit() {
-      editForm.style.display = editForm.style.display === 'flex' ? 'none' : 'flex';
-    }
-
-    function saveProfile() {
-      const newName = document.getElementById('nameInput').value.trim();
-      const newEmail = document.getElementById('emailInput').value.trim();
-      const newImg = document.getElementById('imgInput').files[0];
-
-      if (newName) userName.textContent = newName;
-      if (newEmail) userEmail.textContent = newEmail;
-
-      if (newImg) {
-        const reader = new FileReader();
-        reader.onload = e => {
-          profilePic.src = e.target.result;
-        };
-        reader.readAsDataURL(newImg);
+    </main>
+    <script>
+      let theme = localStorage.getItem("theme");
+      if (theme === "dark-theme") {
+        document.body.classList.toggle("dark-theme");
       }
-
-      toggleEdit();
-    }
-  </script>
-</body>
+    </script>
+  </body>
 </html>
